@@ -1,1 +1,1 @@
-declare const customService: any;
+export {};
