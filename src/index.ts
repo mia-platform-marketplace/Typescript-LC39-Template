@@ -18,7 +18,7 @@
 
 const customService = require('@mia-platform/custom-plugin-lib')()
 /* eslint-disable-next-line no-unused-vars */
-module.exports = customService(async function index(service) {
+module.exports = customService(async function index(service: any) {
 
   /*
    * Insert your code here.
