@@ -8,12 +8,6 @@
     "declaration": true,
     "sourceMap": true,
     "noImplicitAny": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "node_modules/@mia-platform",
-      ]
-    }
   },
   "include": [
     "src/**/*"
