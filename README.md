@@ -7,6 +7,13 @@
 ## Summary
 Template with Typescript and LC39
 
+## Compile with Typescript
+In order to transpile your project to Javascript, using the current `tsconfig.json` settings, run the following command:
+```shell
+npm run typescript
+```
+
+This command will create the project `.js` sources inside the `lib/` folder.
 ## Local Development
 To develop the service locally you need:
 - Node 10+
