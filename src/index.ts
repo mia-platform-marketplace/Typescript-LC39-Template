@@ -17,14 +17,15 @@
 'use strict'
 
 
-import customPlugin = require("@mia-platform/custom-plugin-lib");
-const customService = require('@mia-platform/custom-plugin-lib')()
+import customPluginLib, {DecoratedFastify} from "@mia-platform/custom-plugin-lib"
+
+const customService = customPluginLib()
 
 /* eslint-disable-next-line no-unused-vars */
-module.exports = customService(async function index(service:customPlugin.CustomService) {
+export default customService(async function index(service: DecoratedFastify) {
 
-  /*
-   * Insert your code here.
-   */
+    /*
+     * Insert your code here.
+     */
 
 })
