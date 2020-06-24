@@ -1,6 +1,5 @@
-# Typescript-LC39-Template
+# mia_template_service_name_placeholder
 
-# nodejs-custom-plugin
 [![pipeline status][pipeline]][git-link]
 [![coverage report][coverage]][git-link]
 

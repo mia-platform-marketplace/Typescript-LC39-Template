@@ -20,7 +20,6 @@
 import {DecoratedFastify} from "@mia-platform/custom-plugin-lib";
 const customService = require('@mia-platform/custom-plugin-lib')()
 
-/* eslint-disable-next-line no-unused-vars */
 module.exports = customService(async function index(service:DecoratedFastify) {
 
   /*
