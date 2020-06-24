@@ -50,7 +50,7 @@ afterAll(async () => {
 
 describe('mia_template_service_name_placeholder', () => {
     /*
-    * Insert your __tests__ here.
+    * Insert your tests here.
     */
     test('Insert test name here', () => {
 
