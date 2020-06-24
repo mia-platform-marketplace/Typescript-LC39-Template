@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /* eslint require-await: 0 */
 'use strict'
-
 
 import {DecoratedFastify} from "@mia-platform/custom-plugin-lib";
 const customService = require('@mia-platform/custom-plugin-lib')()
