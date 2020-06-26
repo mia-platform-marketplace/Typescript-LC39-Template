@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /* eslint require-await: 0 */
 'use strict'
 
-
-import customPlugin = require("@mia-platform/custom-plugin-lib");
+import {DecoratedFastify} from "@mia-platform/custom-plugin-lib";
 const customService = require('@mia-platform/custom-plugin-lib')()
 
-/* eslint-disable-next-line no-unused-vars */
-module.exports = customService(async function index(service:customPlugin.CustomService) {
+module.exports = customService(async function index(service:DecoratedFastify) {
 
   /*
    * Insert your code here.
