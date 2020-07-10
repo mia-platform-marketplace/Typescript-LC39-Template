@@ -1,7 +1,6 @@
 FROM node:12.3.1-alpine as build
 
 ARG COMMIT_SHA=<not-specified>
-ENV NODE_ENV=production
 
 WORKDIR /build-dir
 
@@ -9,7 +8,6 @@ COPY package.json .
 COPY package-lock.json .
 
 RUN npm ci
-RUN npm i typescript
 
 COPY . .
 
