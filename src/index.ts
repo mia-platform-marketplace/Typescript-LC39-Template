@@ -15,12 +15,12 @@
  */
 
 /* eslint require-await: 0 */
-'use strict'
 
-import {DecoratedFastify} from "@mia-platform/custom-plugin-lib";
-const customService = require('@mia-platform/custom-plugin-lib')()
+import customService, {DecoratedFastify} from '@mia-platform/custom-plugin-lib'
 
-module.exports = customService(async function index(service:DecoratedFastify) {
+const customServiceWithEnvVariables = customService()
+
+module.exports = customServiceWithEnvVariables(async function index(service: DecoratedFastify) {
 
   /*
    * Insert your code here.

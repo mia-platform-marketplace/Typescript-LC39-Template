@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "coverage": "npm run unit -- --coverage",
-    "lint": "eslint . --ignore-path=.gitignore",
+    "lint": "eslint src --ext .js,.ts,.tsx",
     "start": "lc39 dist/index.js",
     "start:local": "npm start -- --env-path ./default.env",
     "test": "npm run lint && npm run unit",
@@ -17,16 +17,17 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
-    "@mia-platform/custom-plugin-lib": "^2.3.0",
-    "fastify": "^2.15.1",
-    "typescript": "^4.4.2"
+    "@mia-platform/custom-plugin-lib": "^4.0.0",
+    "typescript": "^4.4.3"
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
-    "@types/jest": "^26.0.24",
+    "@types/jest": "^27.0.1",
+    "@typescript-eslint/parser": "^4.31.1",
     "eslint": "^7.32.0",
-    "jest": "^26.6.3",
-    "ts-jest": "^26.5.6"
+    "eslint-config-standard": "^16.0.3",
+    "jest": "^27.2.0",
+    "ts-jest": "^27.0.5"
   },
   "engines": {
     "node": ">=10"
