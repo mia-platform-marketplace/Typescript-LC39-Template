@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-/* eslint require-await: 0 */
-
 import customService, {DecoratedFastify} from '@mia-platform/custom-plugin-lib'
 
-const customServiceWithEnvVariables = customService()
-
-module.exports = customServiceWithEnvVariables(async function index(service: DecoratedFastify) {
+module.exports = customService()(async function index(service: DecoratedFastify) {
 
   /*
    * Insert your code here.
