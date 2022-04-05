@@ -74,7 +74,7 @@ A more detailed description on how to use our `custom-plugin-lib` to define the 
 In order to proceed, you need to define a handler, a schema and pass them as parameters to this function.  
 Below, you can see how the *index.tss* file will look like after having defined all the parameters required by `service.addRawCustomPlugin` function:
 
-```js
+```ts
 /* eslint require-await: 0 */
 'use strict'
 
