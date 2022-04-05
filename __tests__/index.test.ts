@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-'use strict'
-
-import {FastifyInstance} from "fastify"
+import { FastifyInstance } from 'fastify'
 
 export interface ProcessEnv {
   [key: string]: string | undefined
 }
 
 describe('mia_template_service_name_placeholder', () => {
-  const lc39 = require('@mia-platform/lc39')
-
   let fastify: FastifyInstance
 
   async function setupFastify(envVariables: ProcessEnv): Promise<FastifyInstance> {
+    const lc39 = await import('@mia-platform/lc39')
+
     const fastify = await lc39('src/index.ts', {
       logLevel: 'silent',
       envVariables,
@@ -35,7 +33,7 @@ describe('mia_template_service_name_placeholder', () => {
     return fastify
   }
 
-  beforeAll(async () => {
+  beforeAll(async() => {
     fastify = await setupFastify({
       USERID_HEADER_KEY: 'userid',
       GROUPS_HEADER_KEY: 'groups',
@@ -43,9 +41,9 @@ describe('mia_template_service_name_placeholder', () => {
       BACKOFFICE_HEADER_KEY: 'backoffice',
       MICROSERVICE_GATEWAY_SERVICE_NAME: 'microservice-gateway.example.org',
     })
-  });
+  })
 
-  afterAll(async () => {
+  afterAll(async() => {
     await fastify.close()
   })
 
@@ -53,6 +51,6 @@ describe('mia_template_service_name_placeholder', () => {
   * Insert your tests here.
   */
   test('Insert test name here', () => {
-
+    expect(true).toStrictEqual(true)
   })
 })
