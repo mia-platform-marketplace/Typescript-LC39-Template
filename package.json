@@ -15,7 +15,6 @@
     "unit": "jest",
     "version": "npm run update-changelog && npm run update-docker-version && rm -fr Dockerfile.bck && git add CHANGELOG.md Dockerfile",
     "build": "tsc --project tsconfig.json"
-
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {

@@ -16,7 +16,6 @@
 
 /* eslint require-await: 0 */
 
-
 import { DecoratedFastify } from '@mia-platform/custom-plugin-lib'
 const customService = require('@mia-platform/custom-plugin-lib')()
 
