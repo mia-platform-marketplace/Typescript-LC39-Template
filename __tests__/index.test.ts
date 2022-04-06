@@ -24,9 +24,9 @@ describe('mia_template_service_name_placeholder', () => {
   let fastify: FastifyInstance
 
   async function setupFastify(envVariables: ProcessEnv): Promise<FastifyInstance> {
-    const lc39 = await import('@mia-platform/lc39')
+    const lc39 = (await import('@mia-platform/lc39')).default
 
-    const fastify = await lc39('src/index.ts', {
+    const fastify = lc39('src/index.ts', {
       logLevel: 'silent',
       envVariables,
     })
