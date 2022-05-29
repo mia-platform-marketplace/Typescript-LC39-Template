@@ -5,6 +5,7 @@
 .nyc_output
 build/Release
 coverage
+dist
 node_modules
 __tests__
 docs
@@ -17,3 +18,9 @@ docs
 .yarn-integrity
 Dockerfile
 README.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+CHANGELOG.md
+tsconfig.tsbuildinfo
+jest.config.js
+.husky

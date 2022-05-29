@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Mia srl
+ * Copyright 2022 Mia srl
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-/* eslint require-await: 0 */
-'use strict'
+import { envSchema } from './env'
+import { getMetrics } from './metrics'
+import { UndecoratedService } from './types'
 
-import {DecoratedFastify} from "@mia-platform/custom-plugin-lib";
-const customService = require('@mia-platform/custom-plugin-lib')()
+const customService = require('@mia-platform/custom-plugin-lib')(envSchema)
 
-module.exports = customService(async function index(service: DecoratedFastify) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+module.exports = customService(async(service: UndecoratedService) => {
 
   /*
    * Insert your code here.
    */
 
 })
+
+module.exports.getMetrics = getMetrics

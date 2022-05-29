@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Mia srl
+ * Copyright 2022 Mia srl
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,45 +14,33 @@
  * limitations under the License.
  */
 
-'use strict'
+import { MainService } from '../src/types'
+import { startService } from './helpers'
 
-import {FastifyInstance} from "fastify"
+import { getConfig } from './config'
 
-export interface ProcessEnv {
-  [key: string]: string | undefined
-}
+describe('Test service initialization', () => {
+  let service: MainService
 
-describe('mia_template_service_name_placeholder', () => {
-  const lc39 = require('@mia-platform/lc39')
-
-  let fastify: FastifyInstance
-
-  async function setupFastify(envVariables: ProcessEnv): Promise<FastifyInstance> {
-    const fastify = await lc39('src/index.ts', {
-      logLevel: 'silent',
-      envVariables,
-    })
-    return fastify
-  }
-
-  beforeAll(async () => {
-    fastify = await setupFastify({
-      USERID_HEADER_KEY: 'userid',
-      GROUPS_HEADER_KEY: 'groups',
-      CLIENTTYPE_HEADER_KEY: 'clienttype',
-      BACKOFFICE_HEADER_KEY: 'backoffice',
-      MICROSERVICE_GATEWAY_SERVICE_NAME: 'microservice-gateway.example.org',
-    })
-  });
-
-  afterAll(async () => {
-    await fastify.close()
+  beforeAll(async() => {
+    const config = getConfig()
+    service = await startService(config)
   })
 
-  /*
-  * Insert your tests here.
-  */
-  test('Insert test name here', () => {
+  afterAll(async() => {
+    await service.close()
+  })
 
+  test('status routes work as expected', async() => {
+    const routes = ['healthz', 'ready', 'metrics']
+
+    for (const route of routes) {
+      const { statusCode } = await service.inject({
+        method: 'GET',
+        url: `/-/${route}`,
+      })
+
+      expect(statusCode).toBe(200)
+    }
   })
 })
