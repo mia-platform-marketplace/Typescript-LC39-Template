@@ -31,15 +31,17 @@ A more detailed description on how to create and save a Microservice can be foun
 
 ## Look inside your repository
 
-After having created your first microservice (based on this template) you will be able to access to its git repository from the DevOps Console. Inside this repository you will find an [index.ts](https://github.com/mia-platform-marketplace/Typescript-LC39-Template/blob/master/index.ts) file with the following lines of code:
+After having created your first microservice (based on this template) you will be able to access to its git repository from the DevOps Console. Inside this repository you will find an [index.ts](./src/index.ts) file with the following lines of code:
 
-```js
-/* eslint require-await: 0 */
-'use strict'
+```typescript
+import { envSchema } from './env'
+import { getMetrics } from './metrics'
+import { UndecoratedService } from './types'
 
-const customService = require('@mia-platform/custom-plugin-lib')()
-/* eslint-disable-next-line no-unused-vars */
-module.exports = customService(async function index(service) {
+const customService = require('@mia-platform/custom-plugin-lib')(envSchema)
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+module.exports = customService(async(service: UndecoratedService) => {
 
   /*
    * Insert your code here.
@@ -58,7 +60,7 @@ As you may have noticed in the snippet of code in the previous section, you will
 `custom-plugin-lib` is a [node.js](https://github.com/mia-platform/custom-plugin-lib) library developed by Mia-Platform. This library contains configurations and functions that will help you to modify your template with easiness.
 In particular, you will use the following function for our library
 
-```javascript
+```typescript
 service.addRawCustomPlugin(httpVerb, path, handler, schema)
 ```
 
@@ -72,13 +74,14 @@ and you will pass to it the following parameters:
 A more detailed description on how to use our `custom-plugin-lib` to define the behavior of your microservice in response to an HTTP request can be found in [Create a Node Custom Microservices](https://docs.mia-platform.eu/development_suite/api-console/api-design/plugin_baas_4/) section of Mia-Platform documentation.
 
 In order to proceed, you need to define a handler, a schema and pass them as parameters to this function.  
-Below, you can see how the *index.tss* file will look like after having defined all the parameters required by `service.addRawCustomPlugin` function:
+Below, you can see how the *index.ts* file will look like after having defined all the parameters required by `service.addRawCustomPlugin` function:
 
-```js
-/* eslint require-await: 0 */
-'use strict'
+```typescript
+import { envSchema } from './env'
+import { getMetrics } from './metrics'
+import { UndecoratedService } from './types'
 
-const customService = require('@mia-platform/custom-plugin-lib')()
+const customService = require('@mia-platform/custom-plugin-lib')(envSchema)
 
 // response scheme
 const helloSchema = {
@@ -95,10 +98,15 @@ const helloSchema = {
 
 interface HelloRequest { }
 
-module.exports = customService(async function index(service: DecoratedFastify) {    
-  service.addRawCustomPlugin('GET', '/hello', async function (request:DecoratedRequest<HelloRequest>, reply:FastifyReply<any>) {
-    return { message: 'Hello World' }
-  }, schema)
+module.exports = customService(async(service: UndecoratedService) => {
+  service.addRawCustomPlugin(
+    'GET',
+    '/hello',
+    async function (request:DecoratedRequest<HelloRequest>, reply:FastifyReply<any>) {
+      return { message: 'Hello World' }
+    },
+    schema
+  )
 })
 ```
 
