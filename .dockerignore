@@ -24,3 +24,5 @@ CHANGELOG.md
 tsconfig.tsbuildinfo
 jest.config.js
 .husky
+scripts
+.github

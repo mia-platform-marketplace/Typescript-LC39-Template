@@ -1,12 +1,8 @@
 FROM node:16-alpine as build
 
 ARG COMMIT_SHA=<not-specified>
-ARG CI=1
 
 WORKDIR /build-dir
-
-# import scripts to allow packages installation succeed
-COPY scripts ./scripts
 
 COPY package.json .
 COPY package-lock.json .
@@ -28,8 +24,6 @@ RUN echo "mia_template_service_name_placeholder: $COMMIT_SHA" >> ./commit.sha
 
 FROM node:16-alpine
 
-ARG CI=1
-
 LABEL maintainer="%CUSTOM_PLUGIN_CREATOR_USERNAME%" \
       name="mia_template_service_name_placeholder" \
       description="%CUSTOM_PLUGIN_SERVICE_DESCRIPTION%" \
@@ -47,9 +41,6 @@ COPY --from=build /build-dir ./
 
 # install only dependencies required to run the service
 RUN npm ci --production
-
-# post-install remove scripts
-RUN rm -r scripts
 
 USER node
 

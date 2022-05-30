@@ -25,5 +25,5 @@
     "externalHelpers": false,
     "keepClassNames": true
   },
-  "sourceMaps": true
+  "sourceMaps": "inline"
 }
