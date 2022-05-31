@@ -151,6 +151,27 @@ you should see the following message:
 
 Congratulations! You have successfully learnt how to modify a blank template into an _Hello World_ TypeScript microservice!
 
+## Developer Tips
+
+### NPM Build Commands
+
+This project adopts [SWC](https://swc.rs/) to compile Typescript into Javascript. One downside of using SWC is that types are not checked anymore.
+Since types are the main reason of introducing Typescript, losing such feature would invalidate its proposition.
+
+For this reason, it has been decided to combine `tsc` type checking with `swc` compiling power. This is reflected in the `npm build` script defined in the `package.json` file. Indeed, that script at first launches a types verification procedure and then, in case of success, it transpiles Typescript into Javascript.
+
+### NPM Test
+
+In this repository are offered two options to ensure that tests are passing before any source code is committed:
+
+- _pre-commit hook_, which can be installed by executing the following npm script:
+  
+      npm run install-precommit
+
+- _execute tests in watch mode_, that is continuously running tests on parts of the source code that were edited. This can be achieved running this npm script:
+
+      npm run dev
+
 [github-actions]: https://github.com/mia-platform-marketplace/Typescript-LC39-Template/actions
 [github-actions-svg]: https://github.com/mia-platform-marketplace/Typescript-LC39-Template/workflows/Node.js%20CI/badge.svg
 [coverall-svg]: https://coveralls.io/repos/github/mia-platform-marketplace/Typescript-LC39-Template/badge.svg?branch=master
