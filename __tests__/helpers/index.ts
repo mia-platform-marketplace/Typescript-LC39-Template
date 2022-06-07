@@ -15,20 +15,13 @@
  */
 
 import lc39 from '@mia-platform/lc39'
-import { LogLevel } from 'fastify'
+import { FastifyInstance } from 'fastify'
 
-import { EnvVariables } from '../../src/env'
-import { MainService } from '../../src/types'
 import { LOG_LEVEL } from '../config'
+import { EnvVariables } from '../../src/env'
 
-export const startService = async(conf: EnvVariables): Promise<MainService> => {
-  return (lc39 as unknown as (
-    filePath: string,
-    options: {
-      logLevel: LogLevel | 'silent',
-      envVariables: Record<string, string | number | undefined>
-    }
-  ) => Promise<MainService>)('./src/index.ts', {
+export const startService = async(conf: EnvVariables): Promise<FastifyInstance> => {
+  return lc39('./src/index.ts', {
     logLevel: LOG_LEVEL ?? 'silent',
     envVariables: conf,
   })

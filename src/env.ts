@@ -28,5 +28,5 @@ export const envSchema = {
 export type EnvVariables = FromSchema<typeof envSchema & {
   additionalProperties: false
 }> & {
-  [key: string]: string | number | undefined
+  [key: string]: string
 }
