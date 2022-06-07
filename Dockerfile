@@ -1,4 +1,4 @@
-FROM node:16-alpine as build
+FROM node:16.15.1-alpine as build
 
 ARG COMMIT_SHA=<not-specified>
 
@@ -15,14 +15,14 @@ COPY . .
 # compile Typescript to Javascript
 RUN npm run build
 
-# remove unneeded files
+# remove files not needed in the final stage
 RUN rm -rf node_modules src tsconfig.json .swcrc
 
 RUN echo "mia_template_service_name_placeholder: $COMMIT_SHA" >> ./commit.sha
 
 ########################################################################################################################
 
-FROM node:16-alpine
+FROM node:16.15.1-alpine
 
 LABEL maintainer="%CUSTOM_PLUGIN_CREATOR_USERNAME%" \
       name="mia_template_service_name_placeholder" \
