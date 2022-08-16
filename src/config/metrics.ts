@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-import { DecoratedFastify } from '@mia-platform/custom-plugin-lib'
-import { EnvVariables } from './env'
-import { Metrics } from './metrics'
+import PrometheusClient, { Counter } from 'prom-client'
 
-export type UndecoratedService = DecoratedFastify<EnvVariables> & {
-  customMetrics: Metrics
+export const getMetrics = (prometheusClient: typeof PrometheusClient): {
+  // add here your exported metrics type
+  counterExample: Counter<any>
+} => {
+  // define here your custom metrics
+  const counterExample = new prometheusClient.Counter({
+    name: 'example_total',
+    help: 'count how many times this metric is incremented',
+    labelNames: [],
+  })
+
+  return {
+    counterExample,
+  }
 }
 
-export type MainService = UndecoratedService & {
-  // add here decorated fields
-}
+export type Metrics = ReturnType<typeof getMetrics>

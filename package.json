@@ -5,46 +5,40 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "lint:fix": "eslint . --ignore-path=.gitignore --ext=ts --fix",
     "lint": "eslint . --ignore-path=.gitignore --ext=ts",
-    "lint:fix": "npm run lint -- --fix",
-    "unit": "jest",
+    "check": "tsc --project tsconfig.json --noEmit",
+    "unit:unsafe": "npm run unit:unsafe:unspecified -- tests/**/*.test.ts",
+    "unit:unsafe:unspecified": "SWC_NODE_PROJECT=./tsconfig.json tap -b --node-arg='-r' --node-arg='@swc-node/register'",
+    "unit": "npm run check && npm run unit:unsafe",
     "test": "npm run lint && npm run unit",
-    "coverage": "npm run unit -- --coverage",
-    "clean": "rm -rf ./dist",
-    "check-types": "tsc --pretty --project tsconfig.json",
-    "compile": "npm run check-types && swc src -d dist -s true",
-    "build": "npm run clean && npm run compile",
-    "dev": "jest --watch",
+    "coverage": "npm run unit -- --coverage-report=text-summary",
+    "postcoverage": "tap --coverage-report=lcov --no-browser",
+    "build": "tsc --project build.tsconfig.json",
     "start": "lc39 dist/index.js",
-    "start:local": "npm run compile && npm start -- --env-path ./default.env",
+    "start:local": "npm run build && npm start -- --env-path ./default.env",
     "update-docker-version": "sed -i.bck \"s|version=\\\"[0-9]*\\.[0-9]*\\.[0-9]*.*\\\"|version=\\\"${npm_package_version}\\\"|\" Dockerfile",
     "update-changelog": "node ./scripts/update-changelog.js ${npm_package_version}",
-    "version": "npm run update-changelog && npm run update-docker-version && rm -fr Dockerfile.bck && git add CHANGELOG.md Dockerfile",
-    "install-precommit": "npx husky install"
+    "version": "npm run update-changelog && npm run update-docker-version && rm -fr Dockerfile.bck && git add CHANGELOG.md Dockerfile"
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
-    "@mia-platform/custom-plugin-lib": "^5.0.0"
+    "@mia-platform/custom-plugin-lib": "^5.1.1"
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
-    "@swc/cli": "^0.1.57",
-    "@swc/core": "^1.2.197",
-    "@swc/jest": "^0.2.21",
-    "@types/jest": "^28.1.1",
-    "@typescript-eslint/eslint-plugin": "^5.27.1",
-    "@typescript-eslint/parser": "^5.27.1",
-    "chokidar": "^3.5.3",
-    "eslint": "^8.17.0",
-    "eslint-plugin-jest": "^26.5.3",
-    "husky": "^8.0.1",
-    "jest": "^28.1.1",
-    "json-schema-to-ts": "^2.5.3",
-    "ts-jest": "^28.0.4",
-    "typescript": "^4.7.3"
+    "@swc-node/register": "^1.5.1",
+    "@types/lodash.clonedeep": "^4.5.7",
+    "@types/tap": "^15.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "eslint": "^8.22.0",
+    "json-schema-to-ts": "^2.5.5",
+    "tap": "^16.3.0",
+    "typescript": "^4.7.4"
   },
   "peerDependencies": {
-    "@mia-platform/lc39": "^6.0.1"
+    "@mia-platform/lc39": "^6.0.2"
   },
   "engines": {
     "node": ">=16"

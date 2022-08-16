@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import PrometheusClient, { Counter } from 'prom-client'
+import lc39 from '@mia-platform/lc39'
+import { BaseService } from '../../src/interfaces/service'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getMetrics = (prometheusClient: typeof PrometheusClient): {
-} => {
-  // define here your custom metrics
+import { LOG_LEVEL } from './env'
+import { EnvironmentVariables } from '../../src/config/env'
 
-  return {}
+export const startService = async(
+  envVariables?: EnvironmentVariables,
+): Promise<BaseService> => {
+  const service = await lc39('src/index.ts', {
+    logLevel: LOG_LEVEL ?? 'silent',
+    envVariables,
+  }) as BaseService
+
+  await service.ready()
+
+  return service
 }
-
-export type Metrics = ReturnType<typeof getMetrics>

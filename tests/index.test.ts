@@ -14,24 +14,34 @@
  * limitations under the License.
  */
 
-import { MainService } from '../src/types'
+import Tap from 'tap'
+
+import { BaseService } from '../src/interfaces/service'
+import { getConfig } from './helpers/env'
 import { startService } from './helpers'
 
-import { getConfig } from './config'
+Tap.test('mia_template_service_name_placeholder service initialization', async t => {
+  const testEnv = await getConfig()
 
-describe('Test service initialization', () => {
-  let service: MainService
+  await t.test('Service starts successfully', async assert => {
+    let service: BaseService
 
-  beforeAll(async() => {
-    const config = getConfig()
-    service = await startService(config)
+    assert.teardown(async() => { await service?.close() })
+
+    try {
+      service = await startService(testEnv)
+    } catch (error) {
+      assert.fail('it should not throw')
+    }
+
+    assert.end()
   })
 
-  afterAll(async() => {
-    await service.close()
-  })
+  await t.test('Service status routes work as expected', async assert => {
+    const service: BaseService = await startService(testEnv)
 
-  test('status routes work as expected', async() => {
+    assert.teardown(async() => { await service.close() })
+
     const routes = ['healthz', 'ready', 'metrics']
 
     for (const route of routes) {
@@ -40,7 +50,12 @@ describe('Test service initialization', () => {
         url: `/-/${route}`,
       })
 
-      expect(statusCode).toBe(200)
+      assert.strictSame(statusCode, 200)
     }
+
+    assert.end()
   })
-})
+
+  t.end()
+}).then()
+

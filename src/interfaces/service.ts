@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
+import { DecoratedFastify } from '@mia-platform/custom-plugin-lib'
 
-import { EnvVariables } from '../src/env'
+import { Metrics } from '../config/metrics'
+import { EnvironmentVariables } from '../config/env'
 
-export const getConfig: () => EnvVariables = () => ({
-  // Mia - Custom Plugin Lib
-  USERID_HEADER_KEY: 'userid',
-  GROUPS_HEADER_KEY: 'groups',
-  CLIENTTYPE_HEADER_KEY: 'clienttype',
-  BACKOFFICE_HEADER_KEY: 'backoffice',
-  MICROSERVICE_GATEWAY_SERVICE_NAME: 'microservice-gateway',
+export type BaseService = DecoratedFastify<EnvironmentVariables> & {
+    // properties always available to services created via Mia-Platform custom-plugin-lib
+    customMetrics: Metrics
+    config: EnvironmentVariables
+}
 
-  // Service Related Env vars
-})
-
-export const LOG_LEVEL = 'silent'
+export type MainService = BaseService & {
+    // add here further properties decorated on the service
+}

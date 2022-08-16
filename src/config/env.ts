@@ -14,15 +14,23 @@
  * limitations under the License.
  */
 
-import lc39 from '@mia-platform/lc39'
-import { FastifyInstance } from 'fastify'
+import { FromSchema } from 'json-schema-to-ts'
 
-import { LOG_LEVEL } from '../config'
-import { EnvVariables } from '../../src/env'
+export const environmentSchema = {
+  type: 'object',
+  additionalProperties: {
+    type: 'string',
+  },
+  required: [
 
-export const startService = async(conf: EnvVariables): Promise<FastifyInstance> => {
-  return lc39('./src/index.ts', {
-    logLevel: LOG_LEVEL ?? 'silent',
-    envVariables: conf,
-  })
-}
+  ],
+  properties: {
+    // add here your environment variables definition
+  },
+} as const
+
+// allow additional values to be captured in the environment type
+export type EnvironmentVariables =
+  FromSchema<typeof environmentSchema>
+  & { [key: string]: string | number | undefined }
+  & (Record<string, string | number> | undefined)

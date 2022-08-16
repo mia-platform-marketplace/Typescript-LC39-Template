@@ -6,6 +6,9 @@
   "parserOptions": {
     "sourceType": "module"
   },
+  "ignorePatterns": [
+    "*.d.ts"
+  ],
   "rules": {
     "sort-imports": [
       "error",
@@ -26,7 +29,8 @@
   "overrides": [
     {
       "files": [
-        "*.test.ts"
+        "*.test.ts",
+        "tests/helpers/*"
       ],
       "rules": {
         "no-await-in-loop": "off",
@@ -39,23 +43,14 @@
         "max-nested-callbacks": "off",
         "max-statements": "off",
         "@typescript-eslint/no-shadow": "off",
-        "no-loop-func": "off",
-        "jest/no-disabled-tests": "warn",
-        "jest/no-focused-tests": "error",
-        "jest/no-identical-title": "error",
-        "jest/prefer-to-have-length": "warn",
-        "jest/valid-expect": "error"
+        "no-loop-func": "off"
       }
     }
   ],
-  "env": {
-    "jest/globals": true
-  },
   "globals": {
     "NodeJS": true
   },
   "plugins": [
-    "@typescript-eslint",
-    "jest"
+    "@typescript-eslint"
   ]
 }

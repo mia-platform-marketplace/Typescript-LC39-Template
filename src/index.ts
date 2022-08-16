@@ -14,19 +14,27 @@
  * limitations under the License.
  */
 
-import { envSchema } from './env'
-import { getMetrics } from './metrics'
-import { UndecoratedService } from './types'
+import {
+  default as customPluginLib,
+  CustomService,
+  DecoratedFastify,
+  ServiceConfig,
+} from '@mia-platform/custom-plugin-lib'
 
-const customService = require('@mia-platform/custom-plugin-lib')(envSchema)
+import { getMetrics } from './config/metrics'
+import { EnvironmentVariables, environmentSchema } from './config/env'
+import { BaseService } from './interfaces/service'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-module.exports = customService(async(service: UndecoratedService) => {
+const customService: CustomService<EnvironmentVariables> = customPluginLib(environmentSchema)
+
+module.exports = customService(async(service: DecoratedFastify<ServiceConfig>) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const baseService = service as BaseService
 
   /*
    * Insert your code here.
    */
-
 })
 
+// export your custom defined metrics
 module.exports.getMetrics = getMetrics
