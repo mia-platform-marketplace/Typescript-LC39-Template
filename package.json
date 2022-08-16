@@ -43,5 +43,13 @@
   "engines": {
     "node": ">=16"
   },
-  "private": true
+  "private": true,
+  "tap": {
+    "check-coverage": false
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ]
+  }
 }
