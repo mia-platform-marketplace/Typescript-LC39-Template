@@ -9,7 +9,7 @@ COPY package.json .
 COPY package-lock.json .
 
 # install also DEV dependencies to enable Typescript compilation
-RUN npm ci --production=false
+RUN npm ci
 
 COPY . .
 
@@ -24,6 +24,11 @@ RUN echo "mia_template_service_name_placeholder: $COMMIT_SHA" >> ./commit.sha
 ########################################################################################################################
 
 FROM node:16.16.0-alpine
+
+# Resources
+# - https://github.com/krallin/tini
+# - https://cloud.google.com/architecture/best-practices-for-building-containers#signal-handling
+RUN apk add --no-cache tini
 
 LABEL maintainer="%CUSTOM_PLUGIN_CREATOR_USERNAME%" \
       name="mia_template_service_name_placeholder" \
@@ -42,8 +47,10 @@ WORKDIR /home/node/app
 COPY --from=build /build-dir ./
 
 # install only dependencies required to run the service
-RUN npm ci --production
+RUN npm ci --omit=dev
 
 USER node
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 CMD ["npm", "-s", "start", "--", "--port", "${HTTP_PORT}", "--log-level", "${LOG_LEVEL}", "--prefix=${SERVICE_PREFIX}"]

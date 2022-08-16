@@ -25,3 +25,5 @@ tsconfig.tsbuildinfo
 .husky
 scripts
 .github
+.mia-template
+.prettierrc
