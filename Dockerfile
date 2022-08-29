@@ -1,4 +1,4 @@
-FROM node:16.16.0-alpine as build
+FROM node:16.17.0-alpine as build
 
 ARG COMMIT_SHA=<not-specified>
 ENV NPM_CONFIG_CACHE="/tmp"
@@ -23,7 +23,7 @@ RUN echo "mia_template_service_name_placeholder: $COMMIT_SHA" >> ./commit.sha
 
 ########################################################################################################################
 
-FROM node:16.16.0-alpine
+FROM node:16.17.0-alpine
 
 # Resources
 # - https://github.com/krallin/tini
@@ -53,4 +53,4 @@ USER node
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
-CMD ["npm", "-s", "start", "--", "--port", "${HTTP_PORT}", "--log-level", "${LOG_LEVEL}", "--prefix=${SERVICE_PREFIX}"]
+CMD ./node_modules/.bin/lc39 ./dist/index.js --port=${HTTP_PORT} --log-level=${LOG_LEVEL}
