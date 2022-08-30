@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "lint:fix": "eslint . --ignore-path=.gitignore --ext=ts --fix",
+    "lint:fix": "npm run lint -- --fix",
     "lint": "eslint . --ignore-path=.gitignore --ext=ts",
     "check": "tsc --project tsconfig.json --noEmit",
     "unit:unsafe": "npm run unit:unsafe:unspecified -- tests/**/*.test.ts",
