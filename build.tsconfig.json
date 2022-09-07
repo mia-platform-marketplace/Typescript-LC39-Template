@@ -1,5 +1,4 @@
 {
-  /* extend main config to add configs needed only at build time */
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "declaration": true,

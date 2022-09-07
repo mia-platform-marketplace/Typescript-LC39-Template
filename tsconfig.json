@@ -1,20 +1,10 @@
 {
-  /* Base config - employed both for tests and source building */
   "compilerOptions": {
-    /* Language and Environment */
     "target": "es2021",
-
-    /* Modules */
     "module": "commonjs",
-
-    /* Interop Constraints */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-
-    /* To Enable Debugging */
     "inlineSourceMap": true,
-
-    /* Type Checking */
     "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": false,
