@@ -18,9 +18,6 @@ tests
 .yarn-integrity
 Dockerfile
 README.md
-CODE_OF_CONDUCT.md
-CONTRIBUTING.md
-CHANGELOG.md
 tsconfig.tsbuildinfo
 .husky
 scripts
