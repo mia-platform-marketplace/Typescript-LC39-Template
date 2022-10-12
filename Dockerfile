@@ -1,4 +1,4 @@
-FROM node:16.17.0-alpine as build
+FROM node:16.17.1-alpine as build
 
 ARG COMMIT_SHA=<not-specified>
 ENV NPM_CONFIG_CACHE="/tmp"
@@ -16,14 +16,11 @@ COPY . .
 # compile Typescript to Javascript
 RUN npm run build
 
-# remove files not needed in the final stage
-RUN rm -rf node_modules src tsconfig.tsbuildinfo tsconfig.json build.tsconfig.json
-
 RUN echo "mia_template_service_name_placeholder: $COMMIT_SHA" >> ./commit.sha
 
 ########################################################################################################################
 
-FROM node:16.17.0-alpine
+FROM node:16.17.1-alpine
 
 # Resources
 # - https://github.com/krallin/tini
@@ -44,7 +41,12 @@ ENV NPM_CONFIG_CACHE="/tmp"
 
 WORKDIR /home/node/app
 
-COPY --from=build /build-dir ./
+# copy only needed files
+COPY --from=build /build-dir/package.json package.json
+COPY --from=build /build-dir/package-lock.json package-lock.json
+COPY --from=build /build-dir/LICENSE LICENSE
+COPY --from=build /build-dir/CHANGELOG.md CHANGELOG.md
+COPY --from=build /build-dir/dist dist
 
 # install only dependencies required to run the service
 RUN npm ci --omit=dev
