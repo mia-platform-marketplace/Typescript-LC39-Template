@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Mia srl
+ * Copyright 2022 Mia srl
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,27 @@
  * limitations under the License.
  */
 
-/* eslint require-await: 0 */
-'use strict'
+import {
+  default as customPluginLib,
+  CustomService,
+  DecoratedFastify,
+  ServiceConfig,
+} from '@mia-platform/custom-plugin-lib'
 
-import {DecoratedFastify} from "@mia-platform/custom-plugin-lib";
-const customService = require('@mia-platform/custom-plugin-lib')()
+import { getMetrics } from './config/metrics'
+import { EnvironmentVariables, environmentSchema } from './config/env'
+import { BaseService } from './interfaces/service'
 
-module.exports = customService(async function index(service: DecoratedFastify) {
+const customService: CustomService<EnvironmentVariables> = customPluginLib(environmentSchema)
+
+module.exports = customService(async(service: DecoratedFastify<ServiceConfig>) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const baseService = service as BaseService
 
   /*
    * Insert your code here.
    */
-
 })
+
+// export your custom defined metrics
+module.exports.getMetrics = getMetrics

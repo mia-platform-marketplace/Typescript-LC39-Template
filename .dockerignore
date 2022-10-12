@@ -5,9 +5,10 @@
 .nyc_output
 build/Release
 coverage
+dist
 node_modules
-__tests__
 docs
+tests
 .dockerignore
 *.env
 *.log*
@@ -17,3 +18,9 @@ docs
 .yarn-integrity
 Dockerfile
 README.md
+tsconfig.tsbuildinfo
+.husky
+scripts
+.github
+.mia-template
+.prettierrc

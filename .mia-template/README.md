@@ -15,9 +15,9 @@ npm run build
 This command will create the project `.js` sources inside the `dist/` folder.
 ## Local Development
 To develop the service locally you need:
-- Node 10+
+- Node 16+
 
-To setup node, please if possible try to use [nvm][nvm], so you can manage multiple
+To set up node, please if possible try to use [nvm][nvm], so you can manage multiple
 versions easily. Once you have installed nvm, you can go inside the directory of the project and simply run
 `nvm install`, the `.nvmrc` file will install and select the correct version if you don’t already have it.
 

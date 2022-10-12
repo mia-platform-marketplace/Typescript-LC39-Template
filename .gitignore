@@ -11,3 +11,4 @@ node_modules
 !default.env
 .npmrc
 dist
+tsconfig.tsbuildinfo
