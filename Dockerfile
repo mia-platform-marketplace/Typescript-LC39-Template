@@ -47,6 +47,7 @@ COPY --from=build /build-dir/package-lock.json package-lock.json
 COPY --from=build /build-dir/LICENSE LICENSE
 COPY --from=build /build-dir/CHANGELOG.md CHANGELOG.md
 COPY --from=build /build-dir/dist dist
+COPY --from=build /build-dir/commit.sha commit.sha
 
 # install only dependencies required to run the service
 RUN npm ci --omit=dev
