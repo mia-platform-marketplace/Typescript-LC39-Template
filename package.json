@@ -23,7 +23,7 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
-    "@mia-platform/custom-plugin-lib": "^5.1.3"
+    "@mia-platform/custom-plugin-lib": "^5.1.5"
   },
   "devDependencies": {
     "@mia-platform/eslint-config-mia": "^3.0.0",
